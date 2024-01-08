@@ -1,12 +1,14 @@
 defmodule NotesWeb.Authentication.AuthController do
   use NotesWeb, :controller
+  import Hammer
   import NotesWeb.Validators.Authentication.Auth
   import NotesWeb.Helpers
   alias Notes.Parsers.Authentication.AuthParser
 
   def register(conn, params) do
-    case conn.status do
-      nil ->
+
+    case check_rate(conn.remote_ip, 60000, 10) do
+      {:allow, _count} ->
         changeset = verify_user_params(params)
 
         with {:extract, {:ok, data}} <- {:extract, extract_changeset_data(changeset)},
@@ -21,12 +23,14 @@ defmodule NotesWeb.Authentication.AuthController do
           {:create, {:error, message}} ->
             send_error(conn, 400, message.error)
         end
+      {:deny, _count} ->
+        send_error(conn, 429, %{error: "You have exceeded the rate limit"})
     end
   end
 
   def login(conn, params) do
-    case conn.status do
-      nil ->
+    case check_rate(conn.remote_ip, 60000, 10) do
+      {:allow, _count} ->
         changeset = verify_login_params(params)
 
         with {:extract, {:ok, data}} <- {:extract, extract_changeset_data(changeset)},
@@ -42,6 +46,8 @@ defmodule NotesWeb.Authentication.AuthController do
           {:create, {:error, message}} ->
             send_error(conn, 400, message.error)
         end
+        {:deny, _count} ->
+          send_error(conn, 429, %{error: "You have exceeded the rate limit"})
     end
   end
 end

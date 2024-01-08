@@ -61,6 +61,12 @@ defmodule NotesWeb.ErrorHelpers do
     err(:server_error) |> handle_assign_error(assigns)
   end
 
+  def render("429.json", assigns) do
+    err(:rate_limit_exceed) |> handle_assign_error(assigns)
+  end
+
+
+
   defp handle_assign_error(default_message, assigns) do
     case has_assign_error_key?(assigns) do
       {:ok, errors} ->
@@ -98,6 +104,7 @@ defmodule NotesWeb.ErrorHelpers do
       :unauthorized -> "Unauthorized"
       :unexpected_state -> "unexpected_state"
       :bad_request -> "Bad Request"
+      :rate_limit_exceed -> "Rate Limit Exceeded"
     end
   end
 end
