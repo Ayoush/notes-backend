@@ -64,3 +64,10 @@ config :phoenix, :json_library, Jason
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{config_env()}.exs"
+
+config :hammer,
+  backend: {Hammer.Backend.ETS, [expiry_ms: 60_000 * 60 * 4, cleanup_interval_ms: 60_000 * 10]}
+
+config :notes, Notes.Guardian,
+  issuer: "notes",
+  secret_key: "Q2E/lDTn2PHryf9hJQlpd5/PVfSeZ++T/o8Tdaw/3Mky9n2gJOWI3b6N7bKpgIDa"
