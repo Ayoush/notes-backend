@@ -19,7 +19,7 @@ defmodule Notes.MixProject do
   def application do
     [
       mod: {Notes.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:logger, :runtime_tools, :scrivener]
     ]
   end
 
@@ -45,7 +45,14 @@ defmodule Notes.MixProject do
       {:gettext, "~> 0.20"},
       {:jason, "~> 1.2"},
       {:dns_cluster, "~> 0.1.1"},
-      {:plug_cowboy, "~> 2.5"}
+      {:plug_cowboy, "~> 2.5"},
+      {:phoenix_view, "~> 2.0"},
+      {:guardian, "~> 2.0"},
+      {:bcrypt_elixir, "~> 3.0"},
+      {:params, "~> 2.0"},
+      {:hammer, "~> 6.1"},
+      {:scrivener, "~> 2.0"},
+      {:guardian_phoenix, "~> 2.0"}
     ]
   end
 

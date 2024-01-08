@@ -2,11 +2,16 @@ defmodule NotesWeb.Router do
   use NotesWeb, :router
 
   pipeline :api do
-    plug :accepts, ["json"]
+    plug :accepts, ["json", "json-api"]
   end
 
   scope "/api", NotesWeb do
-    pipe_through :api
+    scope "/auth" do
+      scope "/", Authentication do
+        post("/signup", AuthController, :register)
+        post("/login", AuthController, :login)
+      end
+    end
   end
 
   # Enable Swoosh mailbox preview in development
