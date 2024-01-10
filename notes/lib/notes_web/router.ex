@@ -22,6 +22,7 @@ defmodule NotesWeb.Router do
 
   scope "/api", NotesWeb do
     pipe_through(:ensure_auth)
+
     scope "/core" do
       scope "/", Core do
         resources "/notes", NotesController, except: [:edit, :new]

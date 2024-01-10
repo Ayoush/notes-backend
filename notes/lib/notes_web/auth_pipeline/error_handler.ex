@@ -9,6 +9,7 @@ defmodule NotesWeb.AuthPipeline.ErrorHandler do
         |> put_status(403)
         |> put_view(NotesWeb.ErrorHelpers)
         |> render("403.json", message: to_string(type))
+
       {:deny, _count} ->
         conn
         |> put_status(429)

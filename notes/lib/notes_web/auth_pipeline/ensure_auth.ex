@@ -5,5 +5,4 @@ defmodule NotesWeb.AuthPipeline.EnsureAuth do
     error_handler: NotesWeb.AuthPipeline.ErrorHandler
 
   plug Guardian.Plug.EnsureAuthenticated
-
 end
