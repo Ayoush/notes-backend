@@ -50,6 +50,4 @@ defmodule NotesWeb.Core.NotesController do
   # def delete(conn, params) do
   #   IEx.pry()
   # end
-
-  def search
 end
