@@ -6,7 +6,6 @@ defmodule NotesWeb.Authentication.AuthController do
   alias Notes.Parsers.Authentication.AuthParser
 
   def register(conn, params) do
-
     case check_rate(conn.remote_ip, 60000, 10) do
       {:allow, _count} ->
         changeset = verify_user_params(params)
@@ -23,6 +22,7 @@ defmodule NotesWeb.Authentication.AuthController do
           {:create, {:error, message}} ->
             send_error(conn, 400, message.error)
         end
+
       {:deny, _count} ->
         send_error(conn, 429, %{error: "You have exceeded the rate limit"})
     end
@@ -46,8 +46,9 @@ defmodule NotesWeb.Authentication.AuthController do
           {:create, {:error, message}} ->
             send_error(conn, 400, message.error)
         end
-        {:deny, _count} ->
-          send_error(conn, 429, %{error: "You have exceeded the rate limit"})
+
+      {:deny, _count} ->
+        send_error(conn, 429, %{error: "You have exceeded the rate limit"})
     end
   end
 end
