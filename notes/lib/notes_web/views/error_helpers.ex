@@ -65,8 +65,6 @@ defmodule NotesWeb.ErrorHelpers do
     err(:rate_limit_exceed) |> handle_assign_error(assigns)
   end
 
-
-
   defp handle_assign_error(default_message, assigns) do
     case has_assign_error_key?(assigns) do
       {:ok, errors} ->

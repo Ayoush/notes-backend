@@ -52,7 +52,8 @@ defmodule Notes.MixProject do
       {:params, "~> 2.0"},
       {:hammer, "~> 6.1"},
       {:scrivener, "~> 2.0"},
-      {:guardian_phoenix, "~> 2.0"}
+      {:guardian_phoenix, "~> 2.0"},
+      {:ecto_enum, "~> 1.4"}
     ]
   end
 
